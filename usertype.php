@@ -1,5 +1,5 @@
 <?php
-include "Functins.php";
+include "Functions.php";
 $fileName = "usertype.txt";
 
 
