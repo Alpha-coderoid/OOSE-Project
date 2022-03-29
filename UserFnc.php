@@ -4,17 +4,18 @@ $fileName = "user.txt";
 
 
 // CREATE
-function addUser($Email, $Password, $FullName, $DOB)
+function addUser($name,$email,$password,$type)
 {
     global $fileName;
     $id = getLastId($fileName, "~") + 1;
-    $record = $id . "~" . $Email . "~" . $Password . "~" . $FullName . "~" . $DOB;
+    $record = $id . "~" . $name ."~" .$email."~" . $password."~" . $type;
 	//echo $record;
-    if (searchUser($fileName, $Email) == false) {
+    if (searchUser($fileName, $id) == false) {
         StoreRecord($fileName, $record);
         return true;
     } else {
         return false;
+        echo "true";
     }
 
 }
@@ -52,16 +53,15 @@ function getAllUsers()
 
 
 // Update
-function UpdateUser($id, $Email, $Password, $FullName, $DOB)
+function UpdateUser($id, $name,$email,$password,$type)
 {
     global $fileName;
-    $record = $id . "~" . $Email . "~" . $Password . "~" . $FullName . "~" . $DOB . "\r\n";
+    $record = $id . "~" .$name ."~" .$email."~" . $password."~" . $type. "\r\n";
     $r = getRowById($fileName, "~", $id);
-    //echo $record ."NEW <br>";
-    //echo $r ."NEW <br>";
     UpdateRecord($fileName, $record, $r);
 
 }
+
 
 
 // Delete
