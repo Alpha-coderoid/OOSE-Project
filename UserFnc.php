@@ -1,12 +1,11 @@
 <?php
-include "Functins.php";
+include "Functions.php";
 $fileName="UsersFile.txt";
 function DeleteUser($id)
 {
 	global $fileName;
 	$r=getRowById($fileName,"~",$id);
-	//echo $r;
-	//exit();
+	
 	DeleteRecord($fileName,$r);
 }
 function UpdateUser($id,$Email,$Password,$FullName,$DOB)
@@ -14,8 +13,7 @@ function UpdateUser($id,$Email,$Password,$FullName,$DOB)
 	global $fileName;
 	$record=$id."~".$Email."~".$Password."~".$FullName."~".$DOB."\r\n";
 	$r=getRowById($fileName,"~",$id);
-	//echo $record ."NEW <br>";
-	//echo $r ."NEW <br>";
+	
 	UpdateRecord($fileName,$record,$r);
 	
 }
@@ -59,11 +57,12 @@ function Login ($Email,$Password)
 	}
 
 }
-function addUser($Email,$Password,$FullName,$DOB)
+addUser("xx","123","MMp","5/17","2");
+function addUser($Email,$Password,$FullName,$DOB,$type)
 {
 global $fileName;
 $id=getLastId($fileName,"~")+1;
-$record=$id."~".$Email."~".$Password."~".$FullName."~".$DOB;
+$record=$id."~".$Email."~".sha1($Password)."~".$FullName."~".$DOB."~".$type;
 //echo $record;
 if (searchUser($fileName,$Email)==FALSE)
 {
