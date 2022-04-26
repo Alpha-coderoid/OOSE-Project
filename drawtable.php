@@ -1,23 +1,47 @@
 <?php
-function drawtable($fileName)
-{
 
+
+function drawtable($fileName,$fileName2)
+{
+  $f= $_REQUEST["id"];
   $myfile = fopen($fileName, "r+") or die("Unable to open file!");
+  $myfile2 = fopen($fileName2, "r+") or die("Unable to open file!");
+
+
 
     while (!feof($myfile))
     {
         $line = fgets($myfile);
-        echo "<tr>" ;
+          $line2 = fgets($myfile2);
+        echo "<tr>";
 
-        $ArrayLine = explode("~", $line);
-
-        for($i=0;$i<count($ArrayLine); $i++)
+        $ArrayLine1 = explode("~", $line);
+        $ArrayLine2 = explode("~", $line2);
+        if($ArrayLine1[2]==$f)
         {
-            echo "<td>".$ArrayLine[$i]."</td";
-        }
-        echo "</tr>";
+          for($i=0;$i<count($ArrayLine1); $i++)
+          {
+              echo "<td>";
+              echo $ArrayLine1[$i];
+          }
+          for($i=0;$i<count($ArrayLine2); $i++)
+          {
+            if($i==2||$i==4||$i==6||$i==7)
+            {
+              echo "<td>";
+              echo $ArrayLine2[$i];
+            }
+
+          }
+
+
+          echo "</tr>";
+       }
+
+
 
     }
     fclose($myfile);
+    fclose($myfile2);
 }
 ?>
