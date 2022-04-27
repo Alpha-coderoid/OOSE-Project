@@ -14,11 +14,13 @@ if (Login($_POST["Email"],$pass ))
 	session_start();
 	
 	$_SESSION["Email"]=$_POST["Email"];
+  $_SESSION["Password"]=$pass;
 	//echo 	$_SESSION["Email"];
 	
 
     if(Login($_POST["Email"],$pass)==true)
     {
+     // session_start();
       $Password=sha1( $_REQUEST["Password"]);
       $line= searchUser($fileName,$_POST["Email"]."~".$Password);
       $ArrayResult=explode("~",$line);
@@ -30,14 +32,30 @@ if (Login($_POST["Email"],$pass ))
      //echo $w; //line
      $i=1;
       $i2=2;
+     
       $Array=explode("~",$w);
      $trv=0;
      while($trv!=count($Array)-2) //cond
      {
+      $link_address="Login.php";
         // echo "i is "."$i "."$trv   ";
          $trv++;
             $ArrayResult=explode("~",$w);
-         
+          if(intval( $ArrayResult[$i]=="19")){
+           $link_address="make donation.php";
+          }
+          if(intval( $Array[$i])== "21"){
+      
+            $link_address="updateuser.php";
+           }
+          if(intval( $ArrayResult[$i]=="20")){
+          $link_address="removeuser.php";
+           }
+           if(intval( $ArrayResult[$i]=="22")){
+            $link_address="updateorder.php";
+             }
+         // echo $ArrayResult[$i];
+         // echo $ArrayResult[$i];
          $v=$ArrayResult[$i];
              //echo $i;
          //echo $v;
@@ -46,15 +64,29 @@ if (Login($_POST["Email"],$pass ))
            $ArrayResult=explode("~",$w2);
            // $v2=$ArrayResult[1];
           // echo $ArrayResult;
-         echo  $ArrayResult[1];
+          echo "<a href='".$link_address."'>$ArrayResult[1]</a>";
+       //  echo  $ArrayResult[1];
             $i2+=2;
           $i++;
           echo "<br>";
      }
     // echo $i-1;
     //echo $Array[$i];
-
+   // echo intval( $Array[$i]);
+    if(intval( $Array[$i])== "19"){
+    
+      $link_address="make donation.php";
+     }
+     if(intval( $Array[$i])== "20"){
+      
+        $link_address="removeuser.php";
+       }
+       if(intval( $Array[$i])== "21"){
+      
+        $link_address="updateuser.php";
+       }
     $tt=intval( $Array[$i]);
+    //echo $tt;
    // $to=substr($$tt,0,-1);
    // $tt--;
      //echo $tt[2];  
@@ -63,7 +95,8 @@ if (Login($_POST["Email"],$pass ))
      $w2=  getRowById($fileName3,$Separator,$tt);
     // echo $w2;
      $ArrayResult=explode("~",$w2);
-     echo  $ArrayResult[1];
+     echo "<a href='".$link_address."'>$ArrayResult[1]</a>";
+     // echo  $ArrayResult[1];
      
      /*       //echo $i2;
                 $ArrayResult=explode("~",$w);

@@ -3,10 +3,6 @@ include "Functions.php";
 $fileName = "donations_order.txt";
 
 
-// CREATE
-
-echo "hello";
-
 
 
 
@@ -14,27 +10,27 @@ function createorder( $order_id ,$product_id,  $order_day, $order_month, $order_
 {
     global $fileName;
     $record = $order_id. "~" .  $product_id. "~" .date("$order_day/$order_month /$order_year")."~".  $donor_id ;
-    echo $record;
-
+   
  
      StoreRecord($fileName, $record);
-
+ return true;
 }
-createorder(1,2,5,8,2002,4);
-createorder(2,7,9,3,2002,4);
+//createorder(1,2,5,8,2002,4);
+//createorder(2,7,9,3,2002,4);
 // Read
-
+//getorderbyID("1");
 
 function getorderbyID($donation_order_id)
 {
     global $fileName;
     $Record = getRowById($fileName, "~", $donation_order_id);
 
-    $ArrayResult = explode("~", $Record);
-    $Result['order_id'] = $ArrayResult[0];
-    $Result['product_id'] = $ArrayResult[1];
-    $Result['date'] = $ArrayResult[2];
-    $Result['donor_id'] = $ArrayResult[3];
+       $ArrayResult = explode("~", $Record);
+    echo  $Result['order_id'] = $ArrayResult[0]."~";
+    echo  $Result['product_id'] = $ArrayResult[1]."~ ";
+    echo  $Result['date'] = $ArrayResult[2]." ~";
+    echo $Result['donor_id'] = $ArrayResult[3];
+   
     
     return $Result;
     
@@ -62,7 +58,7 @@ function getAllUsersByKeyWord($KeyWord)
 
 
 // Update
-Updateorder(2,2,date("2/5/2022"),3);
+//Updateorder(2,2,date("2/5/2022"),3);
 function Updateorder($order_id ,$product_id, $order_date, $donor_id)
 {
     global $fileName;
@@ -71,7 +67,7 @@ function Updateorder($order_id ,$product_id, $order_date, $donor_id)
     //echo $record ."NEW <br>";
     //echo $r ."NEW <br>";
     UpdateRecord($fileName, $record, $r);
-
+    return true;
 }
 
 
@@ -85,7 +81,6 @@ function DeleteUser($order_id)
     //exit();
     DeleteRecord($fileName, $r);
 }
-
 
 
 
